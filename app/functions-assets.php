@@ -57,7 +57,29 @@ add_action( 'wp_enqueue_scripts', function() {
  * @access public
  * @return void
  */
-add_action( 'enqueue_block_editor_assets', function() {
+add_action( 'enqueue_block_assets', function() {
+
+	$deps = [
+		'wp-i18n',
+		'wp-blocks',
+		'wp-dom-ready',
+		'wp-edit-post',
+	];
+
+	wp_enqueue_script( 'exhale-editor', asset( 'js/editor.js' ), $deps, null, true );
+
+	// For now, we're adding translations via PHP. In the future, when our
+	// tools catch up, we'll internationalize in the JS files.
+	wp_localize_script( 'exhale-editor', 'exhaleEditor', [
+		'labels' => [
+			'default'      => __( 'Default',   'exhale' ),
+			'border'       => __( 'Bordered',  'exhale' ),
+			'borderDouble' => __( 'Double',    'exhale' ),
+			'borderDashed' => __( 'Dashed',    'exhale' ),
+			'borderless'   => __( 'No Border', 'exhale' ),
+			'highlight'    => __( 'Highlight', 'exhale' )
+		]
+	] );
 
 	// Enqueue theme editor styles.
 	wp_enqueue_style( 'exhale-editor', asset( 'css/editor.css' ), null, null );

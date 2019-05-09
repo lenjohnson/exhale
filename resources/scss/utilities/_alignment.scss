@@ -41,13 +41,18 @@
 	margin-left:  auto;
 	margin-right: auto;
 	text-align:   center;
-	clear:        both;
+
+	> img {
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 // Align full and wide classes.
 .alignwide,
 .alignfull,
 .aligncenter {
+	clear:         both;
 	margin-bottom: $spacing-global;
 }
 
@@ -80,5 +85,16 @@ p .aligncenter {
 		margin-left  : -125px;
 		margin-right : -125px;
 		max-width    : 900px;
+	}
+
+	.alignfull .alignwide,
+	.alignwide .alignwide,
+	.alignwide .alignfull {
+		margin-left:  auto;
+		margin-right: auto;
+	}
+
+	.alignwide .alignfull {
+		max-width: 100%;
 	}
 }

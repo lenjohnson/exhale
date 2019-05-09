@@ -81,9 +81,11 @@
 }
 
 // Editor post title.
-.editor-post-title__block .editor-post-title__input {
+.editor-post-title__block .editor-post-title__input,
+.editor-post-title__block .editor-post-title__input:focus {
 	line-height: 1.58;
 	font-family: font-family( 'headings' );
+	font-size:   3rem;
 	font-weight: 700;
 	color:       var( --color-headings );
 
@@ -119,6 +121,13 @@
 // Make sure inner blocks span the full width of the container.
 .wp-block-cover__inner-container .wp-block {
 	max-width: 100%;
+}
+
+// Image block.  Adds left/right margin because a white block covers the editor
+// when using an unaligned image inside of the columns block with wide alignment.
+
+.block-core-columns [data-type="core/image"]:not([data-align]) .wp-block-image {
+	display: table;
 }
 
 // Class is used in the editor but not the front end.
@@ -169,6 +178,11 @@
 	}
 }
 
+.edit-post-visual-editor.editor-styles-wrapper .wp-block[data-align="center"] figure {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 // Media text fixes.
 
 // Add appropriate padding to left/right.
@@ -179,4 +193,23 @@
 
 .wp-block-media-text .editor-inner-blocks {
 	padding: 0;
+}
+
+// Columns block.  We need to remove negative margins in editor.
+
+.edit-post-visual-editor .wp-block-columns {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.edit-post-visual-editor [data-align="full"] .wp-block-columns {
+	padding-left: $spacing-global;
+	padding-right: $spacing-global;
+}
+
+// Separator block.
+// Override the `theme.css` included in Gutenberg 5.5.0.
+
+.edit-post-visual-editor .wp-block .wp-block-separator {
+	max-width: 100%;
 }

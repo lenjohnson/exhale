@@ -93,7 +93,7 @@ class Component implements Bootable {
 
 		// Adds each color as a custom property.
 		foreach ( $this->settings as $setting ) {
-			$this->properties->add( $setting->property(), $setting->hex() );
+			$this->properties->add( 'color-' . $setting->name(), $setting );
 		}
 	}
 
@@ -107,7 +107,15 @@ class Component implements Bootable {
 	 */
 	public function registerDefaultSettings( Settings $settings ) {
 
-		foreach ( Config::get( 'settings-color' ) as $name => $options ) {
+		$base   = Config::get( '_settings-color' );
+		$config = Config::get( 'settings-color'  );
+
+		foreach ( $base as $name => $options ) {
+
+			if ( isset( $config[ $name ] ) ) {
+				$options = array_merge( $options, $config[ $name ] );
+			}
+
 			$settings->add( $name, $options );
 		}
 	}
